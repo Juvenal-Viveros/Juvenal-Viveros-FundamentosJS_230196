@@ -7,6 +7,6 @@ un par de practicas de reposte de JavaScript puro, con el objetivo de confirmar 
 basicos de logica de programacion
 
 ## Autor
-Juvenal Vieveros Martinez
+creado por el guapicimo **Juvenal Vieveros Martinez**
 unidad 1 Aplicaciones web Orientadas a sertvicios
 Septiembre 2024
