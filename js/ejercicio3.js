@@ -44,6 +44,7 @@ console.log(`Los datos del PRODUCTO son: \n"
 
     let Producto =
     {
+        ID:316,
         Nombre : "Tenis Deportivos",
         Marca: "Nikes",
         Modelo: "Jordan '24",
@@ -101,11 +102,11 @@ console.log(`Los datos del PRODUCTO son: \n"
         Correo: "blacktemplehood@gmail.com",
         PaisOrigen: "México",
         SaldoActual: 14000.00
-
     }
 
     let Pedido = 
     {
+        ID:5816,
         Producto_Clave: 316,
         Comprador_Clave: 3216,
         Cantidad: 2,
@@ -160,4 +161,76 @@ console.log(`Los datos del PRODUCTO son: \n"
     delete Pedido.TipoPago
     console.log("Despues de la modificación...")
     console.table(Pedido)
+     
+    console.log("%c7.- Metododos para controlar la mutabilidad de los objeto, Congelacion (FREEZE)", style_console);
+    //Si deseamos permitir que los objetos sean modificados ni en estructura, ni en valor, utilizanremos el método FREEZE (congelar).
+    console.log(`La estructura actual del Objeto COMPRADOR es: `)
+    console.table(Comprador)
+    Object.freeze(Comprador)
+    //Intentamos agregar, eliminar o modificar los valores de sus propiedades
+    Comprador.FechaUltimaCompra="05/09/2024 10:15:25"
+    delete Comprador.Tipo;
+    Comprador.Dirección="Calle 16 de Septiembre #102, Col. Manantiales, Huauchinango, Puebla, México.";
+    console.log(`Verificamos si se realizaron los cambios en el objeto COMPRADOR: `)
+    console.table(Comprador)
+
+    console.log("%c8.- Metododos para controlar la mutabilidad de los objeto, sellado (SEAL)", style_console);
+    //Sin embargo, en el caso que desemos poder modificar los valores de las propiedades del Objeto, pero no su estructura, usaremos SEAL
+    console.log(`Objeto antes de ser modificado: `)
+    console.table(Pedido)
+    //sellamos el objeto
+    Object.seal(Pedido)
+    //In tentamos modificar su estructura
+    Pedido[`FechaPedido`]="25/09/2024 11:05:03"
+    delete Pedido[`Cantidad`]
+    console.log(`Verificamos si se realizaron los cambios en el Objetivo PEDIDO: `)
+    //Ahora intentamos modificar el valor de las propiedades
+    Pedido.Cantidad=5
+    console.log(`Verificamos si se realizaron los cambios en el Objeto PEDIDO: `)
+
+    console.log("%c9.- Destructuración de 2 o más objetos", style_console);
+    let {Precio: ProductoPrecio, Marca: ProductoMarca}=Producto
+    let {Correo: ClienteCorreo, PaisOrigen: ClientePais, SaldoActual: ClienteSaldo, Tipo: ClienteTipo}=Comprador
+
+    //Transformar valores cuantitativos en cualitativos
+    if(ProductoPrecio>2000)
+        ProductoPrecio="Caro"
+    else
+    ProductoPrecio="Barato"
+
+    if(ClienteSaldo>0)
+    ClienteSaldo="A favor"
+    else if(ClienteSaldo<0)
+        ClienteSaldo="En contra"
+    ClienteSaldo="sin deuda"
+    //Transformar valores Cualitativos en Cuantitativos
+    let ClienteNivel;
+    if(ClienteTipo=="Premium")
+        ClienteNivel=1
+    if(ClienteTipo=="Freemium")
+        ClienteNivel=2
+    if(ClienteTipo=="No identificado")
+        ClienteNivel=3
+    //Clasificamos al cliente por su pais de Origen
+    if(ClientePais=="México")
+        ClientePais="Nacional"
+    else
+    ClientePais="Extranjero"
+
+    //OLE -Objet Literal Enhacement
+    let datosClientePromociones={ClienteCorreo, ClientePais, ClienteNivel, ClienteSaldo, ProductoMarca, ProductoPrecio}
+    //El nuevo objeto creamos seria un ejemplo de la informacion que enviariamos al area de Marketing la diffusion de promociones
+    console.log("Los datos del cliente y sus habitos de compra son: ")
+    console.table(datosClientePromociones)
+
+    console.log("%c10.- Unión de Objetos usando el método de asignaón (ASSING)", style_console);
+    console.log("Imprimimos la estructura y valores del Objeto PRODUCTO")
+    console.table(Producto);
+    console.log("Imprimimos la estructura y valores del Objeto PEDIDO")
+    console.table(Pedido);
+    //Suponiendo que el usuarios ya realizo el pago el pedido se convirtira en una VENTA que requiere informacion de ambos objetos
+    const VENTA=Object.assign(Producto, Pedido);
+    console.log("Consultamos este nuevo objeto VENTA ")
+    console.table(VENTA);
+
     
